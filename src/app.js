@@ -25,4 +25,7 @@ require('./middleware/passport')(passport)
 
 app.use(require('morgan')('dev'))
 
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/lesson', require('./routes/lesson'))
+
 module.exports = app
