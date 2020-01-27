@@ -7,7 +7,8 @@ const classSchema = new Schema({
     },
     pupils: {
         ref: 'users',
-        type: [Schema.Types.ObjectId]
+        type: [Schema.Types.ObjectId],
+        default: []
     },
     curator: {
         ref: 'users',
