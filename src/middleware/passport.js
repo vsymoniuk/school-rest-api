@@ -1,5 +1,5 @@
-const config = require('./config')
-const User = require('./models/User')
+const config = require('../config')
+const User = require('../../models/User')
 
 var JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;

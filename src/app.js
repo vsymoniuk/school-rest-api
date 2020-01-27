@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.use(passport.initialize())
-require('./passport')(passport)
+require('./middleware/passport')(passport)
 
 app.use(require('morgan')('dev'))
 
