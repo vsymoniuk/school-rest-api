@@ -7,6 +7,8 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+    firstName: String,
+    lastName: String,
     password: {
         type: String,
         required: true
@@ -15,10 +17,7 @@ const userSchema = new Schema({
         type: Number,
         default: new Date().getFullYear()
     },
-    role: {
-        type: String,
-        default: 'pupil'
-    }
+    role: String
 })
 
 module.exports = mongoose.model('users', userSchema)
