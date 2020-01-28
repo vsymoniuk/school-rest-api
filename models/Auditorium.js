@@ -5,7 +5,8 @@ const auditoriumSchema = new Schema({
     corpsNumber: Number,
     corpsName: String,
     floor: Number,
-    auditoriumNumber: Number
+    auditoriumNumber: Number,
+    places: Number
 })
 
 module.exports = mongoose.model('auditoriums', auditoriumSchema)

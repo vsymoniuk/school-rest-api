@@ -21,7 +21,6 @@ module.exports.create = async function(req, res) {
 module.exports.getAll = async function(req, res) {
     try {
         const lessons = await Lesson.find()
-
         res.status(200).json(lessons)
     } catch (e) {
         handler.catch(res, e)
@@ -45,7 +44,6 @@ module.exports.update = async function(req, res) {
 
         if (!req.body.name) handler.response(res, 400, 'field name can`t be empty')
         else if (!req.body.lessonNumber) handler.response(res, 400, 'field lessonNumber can`t be empty')
-
 
         let updated = req.body
 
