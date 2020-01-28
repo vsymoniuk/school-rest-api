@@ -54,6 +54,17 @@ module.exports.login = async function(req, res) {
             email: req.body.email
         })
 
+        if (bcryptjs.compareSync(req.body.password, userCandidate.password)) {
+            const token = jwt.sign({
+                userId: userCandidate._id,
+                email: userCandidate.email
+            }, config.jwt, {
+                expiresIn: 60 * 60 * 24
+            })
+        }
+
+        res.status(200).json({ token: `Bearer ${token}` })
+
     } catch (e) {
         handler(res, e)
     }

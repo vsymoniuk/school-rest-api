@@ -24,4 +24,4 @@ const lessonSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('lessons', schoolSchema)
+module.exports = mongoose.model('lessons', lessonSchema)
