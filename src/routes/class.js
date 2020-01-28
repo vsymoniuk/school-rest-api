@@ -1,5 +1,5 @@
 const express = require('express')
-const controller = require('../controllers/lesson')
+const controller = require('../controllers/class')
 const router = express.Router()
 const authentication = require('passport').authenticate('jwt', { session: false })
 

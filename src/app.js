@@ -2,9 +2,11 @@ const mongoose = require('mongoose')
 const express = require('express')
 const passport = require('passport')
 const bodyParser = require('body-parser')
+const morgan = require('morgan')('dev')
 const app = express()
 
 const config = require('./config')
+require('./middleware/passport')(passport)
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -19,13 +21,11 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 app.use(bodyParser.json())
-
+app.use(morgan)
 app.use(passport.initialize())
-require('./middleware/passport')(passport)
-
-app.use(require('morgan')('dev'))
 
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/lesson', require('./routes/lesson'))
+app.use('/api/auditorium', require('./routes/auditorium'))
 
 module.exports = app
