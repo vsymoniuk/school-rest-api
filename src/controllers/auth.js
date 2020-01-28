@@ -54,6 +54,13 @@ module.exports.login = async function(req, res) {
             email: req.body.email
         })
 
+        if (!userCandidate) {
+            res.status(400).json({
+                messgae: 'such user doesn`t exist'
+            })
+            return
+        }
+
         if (bcryptjs.compareSync(req.body.password, userCandidate.password)) {
             const token = jwt.sign({
                 userId: userCandidate._id,
@@ -61,6 +68,11 @@ module.exports.login = async function(req, res) {
             }, config.jwt, {
                 expiresIn: 60 * 60 * 24
             })
+        } else {
+            res.status(400).json({
+                messgae: 'wrong password'
+            })
+            return
         }
 
         res.status(200).json({ token: `Bearer ${token}` })
