@@ -8,15 +8,18 @@ const lessonSchema = new Schema({
     },
     teacher: {
         ref: 'users',
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        require: true
     },
-    students: {
+    class: {
         ref: 'classes',
-        type: Schema.Types.ObjectId
+            type: Schema.Types.ObjectId,
+            require: true
     },
     auditorium: {
         ref: 'auditoriums',
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        require: true
     },
     lessonNumber: {
         type: Number,
