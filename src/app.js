@@ -27,5 +27,7 @@ app.use(passport.initialize())
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/lesson', require('./routes/lesson'))
 app.use('/api/auditorium', require('./routes/auditorium'))
+app.use('/api/class', require('./routes/class'))
+app.use('/api/user', require('./routes/user'))
 
 module.exports = app
