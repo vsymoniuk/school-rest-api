@@ -6,14 +6,11 @@ module.exports.create = async function(req, res) {
     try {
 
         const curator = await User.findById(req.body.curator)
-
-        if (!req.body.name) {
-            handler.response(res, 400, 'field name can`t be empty')
-            return
-        } else if (!curator) {
+        if (!curator) {
             handler.response(res, 400, 'class can`t exist without a curator')
             return
-        } else if (curator.role !== 'teacher') {
+        } else
+        if (curator.role !== 'teacher') {
             handler.response(res, 400, 'only a teacher can be curator')
             return
         } else if (!req.body.pupils) {

@@ -3,16 +3,18 @@ const Schema = mongoose.Schema
 
 const classSchema = new Schema({
     name: {
-        type: String
+        type: String,
+        required: true
     },
     pupils: {
         ref: 'users',
         type: [Schema.Types.ObjectId],
-        default: []
+        required: true
     },
     curator: {
         ref: 'users',
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        required: true
     }
 })
 

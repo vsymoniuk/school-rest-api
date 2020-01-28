@@ -13,15 +13,6 @@ module.exports.create = async function(req, res) {
         } else if (!req.body.auditorium) {
             handler.response(res, 400, 'field auditorium can`t be empty')
             return
-        } else if (!req.body.name) {
-            handler.response(res, 400, 'field name can`t be empty')
-            return
-        } else if (!req.body.teacher) {
-            handler.response(res, 400, 'field teacher can`t be empty')
-            return
-        } else if (!req.body.lessonNumber) {
-            handler.response(res, 400, 'field lessonNumber can`t be empty')
-            return
         }
 
         const lessonNumber = req.body.lessonNumber

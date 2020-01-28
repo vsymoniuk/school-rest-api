@@ -4,26 +4,26 @@ const Schema = mongoose.Schema
 const lessonSchema = new Schema({
     name: {
         type: String,
-        require: true
+        required: true
     },
     teacher: {
         ref: 'users',
         type: Schema.Types.ObjectId,
-        require: true
+        required: true
     },
     class: {
         ref: 'classes',
             type: Schema.Types.ObjectId,
-            require: true
+            required: true
     },
     auditorium: {
         ref: 'auditoriums',
         type: Schema.Types.ObjectId,
-        require: true
+        required: true
     },
     lessonNumber: {
         type: Number,
-        require: true
+        required: true
     }
 })
 
