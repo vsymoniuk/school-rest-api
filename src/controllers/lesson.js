@@ -42,7 +42,7 @@ module.exports.update = async function(req, res) {
     try {
 
 
-        if (!req.body.name) handler.response(res, 400, 'field name can`t be empty')
+        if (req.body.name === '') handler.response(res, 400, 'field name can`t be empty')
         else if (!req.body.lessonNumber) handler.response(res, 400, 'field lessonNumber can`t be empty')
 
         let updated = req.body

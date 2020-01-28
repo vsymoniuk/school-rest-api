@@ -24,7 +24,10 @@ module.exports.getAll = async function(req, res) {
 module.exports.getById = async function(req, res) {
     try {
         const auditorium = await Auditorium.findById(req.params.id)
-        if (!auditorium) handler.response(res, 404, 'auditorium not found')
+        if (!auditorium) {
+            handler.response(res, 404, 'auditorium not found')
+            return
+        }
         res.status(200).json(auditorium)
     } catch (e) {
         handler.catch(res, e)
