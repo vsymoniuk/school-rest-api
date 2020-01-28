@@ -10,24 +10,9 @@ module.exports.register = async function(req, res) {
             email: req.body.email
         })
 
-        if (!req.body.email) {
-            res.status(400).json({
-                success: false,
-                message: 'email can not be empty'
-            })
-            return
-        } else if (!req.body.password) {
-            res.status(400).json({
-                success: false,
-                message: 'password can not be empty'
-            })
-            return
-        } else if (userCandidate) {
-            res.status(409).json({
-                messgae: 'this email is already taken'
-            })
-            return
-        }
+        if (!req.body.email) handler.response(res, 400, 'email can not be empty')
+        else if (!req.body.password) handler.response(res, 400, 'password can not be empty')
+        else if (userCandidate) handler.response(res, 409, 'this email is already taken')
 
         const salt = bcryptjs.genSaltSync(10)
         const password = req.body.password
@@ -44,7 +29,7 @@ module.exports.register = async function(req, res) {
         res.status(201).json(user)
 
     } catch (e) {
-        handler(res, e)
+        handler.catch(res, e)
     }
 }
 
@@ -54,12 +39,7 @@ module.exports.login = async function(req, res) {
             email: req.body.email
         })
 
-        if (!userCandidate) {
-            res.status(400).json({
-                messgae: 'such user doesn`t exist'
-            })
-            return
-        }
+        if (!userCandidate) handler.response(res, 400, 'user with such email doesn`t exist')
 
         if (bcryptjs.compareSync(req.body.password, userCandidate.password)) {
             const token = jwt.sign({
@@ -68,16 +48,11 @@ module.exports.login = async function(req, res) {
             }, config.jwt, {
                 expiresIn: 60 * 60 * 24
             })
-        } else {
-            res.status(400).json({
-                messgae: 'wrong password'
-            })
-            return
-        }
 
-        res.status(200).json({ token: `Bearer ${token}` })
+            res.status(200).json({ token: `Bearer ${token}` })
+        } else handler.response(res, 400, 'wrong password')
 
     } catch (e) {
-        handler(res, e)
+        handler.catch(res, e)
     }
 }
