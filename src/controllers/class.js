@@ -1,5 +1,5 @@
-const Class = require('../../models/Class')
-const User = require('../../models/User')
+const Class = require('../models/Class')
+const User = require('../models/User')
 const handler = require('../middleware/errorHandler')
 const config = require('../config')
 
