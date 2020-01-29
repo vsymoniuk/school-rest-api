@@ -3,6 +3,7 @@ const Auditorium = require('../../models/Auditorium')
 const Class = require('../../models/Class')
 const User = require('../../models/User')
 const handler = require('../middleware/errorHandler')
+const config = require('../config')
 
 module.exports.create = async function(req, res) {
     try {
@@ -40,7 +41,12 @@ module.exports.create = async function(req, res) {
 
 module.exports.getAll = async function(req, res) {
     try {
+        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const page = req.query.page || 1
+
         const lessons = await Lesson.find()
+            .skip(limit * page - limit)
+            .limit(limit)
         res.status(200).json(lessons)
     } catch (e) {
         handler.catch(res, e)

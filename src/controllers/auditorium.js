@@ -1,5 +1,6 @@
 const Auditorium = require('../../models/Auditorium')
 const handler = require('../middleware/errorHandler')
+const config = require('../config')
 
 module.exports.create = async function(req, res) {
     try {
@@ -13,7 +14,12 @@ module.exports.create = async function(req, res) {
 
 module.exports.getAll = async function(req, res) {
     try {
+        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const page = req.query.page || 1
+
         const auditoriums = await Auditorium.find()
+            .skip(limit * page - limit)
+            .limit(limit)
         res.status(200).json(auditoriums)
     } catch (e) {
         handler.catch(res, e)

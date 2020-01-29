@@ -55,7 +55,7 @@ module.exports.login = async function(req, res) {
             const token = jwt.sign({
                 userId: userCandidate._id,
                 email: userCandidate.email
-            }, config.jwt, {
+            }, config.jwt || process.env["JWT"], {
                 expiresIn: 60 * 60 * 24
             })
 

@@ -1,9 +1,16 @@
 const User = require('../../models/User')
 const handler = require('../middleware/errorHandler')
+const config = require('../config')
 
 module.exports.getAll = async function(req, res) {
     try {
+
+        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const page = req.query.page || 1
+
         const users = await User.find()
+            .skip(limit * page - limit)
+            .limit(limit)
         res.status(200).json(users)
     } catch (e) {
         handler.catch(res, e)
