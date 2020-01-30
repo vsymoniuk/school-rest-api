@@ -2,7 +2,7 @@ const Lesson = require('../models/Lesson')
 const Auditorium = require('../models/Auditorium')
 const Class = require('../models/Class')
 const User = require('../models/User')
-const handler = require('../middleware/errorHandler')
+const handler = require('../utils/errorHandler')
 const config = require('../config')
 
 module.exports.create = async function(req, res) {

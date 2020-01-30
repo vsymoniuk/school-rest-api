@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const handler = require('../middleware/errorHandler')
+const handler = require('../utils/errorHandler')
 const config = require('../config')
 
 module.exports.getAll = async function(req, res) {
