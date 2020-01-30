@@ -13,7 +13,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 mongoose.set('useUnifiedTopology', true);
 
-mongoose.connect(process.env["MONGO_URI"] || config.mongoURI)
+mongoose.connect(config.mongoURI || process.env.MONGO_URI)
     .then(() => console.log('Mongo connected.'))
     .catch(error => console.log(error))
 

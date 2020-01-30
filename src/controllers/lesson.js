@@ -1,6 +1,7 @@
-const Lesson = require('../../models/Lesson')
-const Auditorium = require('../../models/Auditorium')
-const Class = require('../../models/Class')
+const Lesson = require('../models/Lesson')
+const Auditorium = require('../models/Auditorium')
+const Class = require('../models/Class')
+const User = require('../models/User')
 const handler = require('../middleware/errorHandler')
 const config = require('../config')
 
@@ -40,10 +41,17 @@ module.exports.create = async function(req, res) {
 
 module.exports.getAll = async function(req, res) {
     try {
-        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const limit = config.pageLimit || process.env.PAGE_LIMIT
         const page = req.query.page || 1
 
         const lessons = await Lesson.find()
+            .populate({ path: 'teacher', model: User })
+            .populate({ path: 'auditorium', model: Auditorium })
+            .populate({
+                path: 'class',
+                model: Class,
+                populate: { path: 'pupils curator', model: User }
+            })
             .skip(limit * page - limit)
             .limit(limit)
         res.status(200).json(lessons)
@@ -56,6 +64,14 @@ module.exports.getAll = async function(req, res) {
 module.exports.getById = async function(req, res) {
     try {
         const lesson = await Lesson.findById(req.params.id)
+            .populate({ path: 'teacher', model: User })
+            .populate({ path: 'auditorium', model: Auditorium })
+            .populate({
+                path: 'class',
+                model: Class,
+                populate: { path: 'pupils curator', model: User }
+            })
+
         if (!lesson) {
             handler.response(res, 404, 'lesson not found')
             return

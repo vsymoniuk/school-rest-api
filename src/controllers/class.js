@@ -30,14 +30,14 @@ module.exports.create = async function(req, res) {
 
 module.exports.getAll = async function(req, res) {
     try {
-        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const limit = config.pageLimit
         const page = req.query.page || 1
 
         const classes = await Class.find()
-            .populate({ path: 'pupils', model: User })
-            .populate({ path: 'curator', model: User })
             .skip(limit * page - limit)
             .limit(limit)
+            .populate({ path: 'pupils', model: User })
+            .populate({ path: 'curator', model: User })
         res.status(200).json(classes)
     } catch (e) {
         handler.catch(res, e)

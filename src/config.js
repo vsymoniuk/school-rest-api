@@ -1,5 +1,7 @@
+require('dotenv').config()
+
 module.exports = {
-    mongoURI: 'mongodb+srv://Leakerman:1111@maincluster-tftbt.mongodb.net/school?retryWrites=true&w=majority',
-    jwt: 'S3c&R3#_K@%',
-    pageLimit: 3
+    mongoURI: process.env.MONGO_URI,
+    jwt: process.env.JWT,
+    pageLimit: +process.env.PAGE_LIMIT
 }

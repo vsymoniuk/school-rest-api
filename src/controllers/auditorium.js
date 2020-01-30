@@ -1,4 +1,4 @@
-const Auditorium = require('../../models/Auditorium')
+const Auditorium = require('../models/Auditorium')
 const handler = require('../middleware/errorHandler')
 const config = require('../config')
 
@@ -14,7 +14,7 @@ module.exports.create = async function(req, res) {
 
 module.exports.getAll = async function(req, res) {
     try {
-        const limit = process.env["PAGE_LIMIT"] || config.pageLimit
+        const limit = config.pageLimit || process.env.PAGE_LIMIT
         const page = req.query.page || 1
 
         const auditoriums = await Auditorium.find()
